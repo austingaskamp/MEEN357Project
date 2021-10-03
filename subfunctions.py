@@ -185,7 +185,7 @@ def F_net(omega, terrain_angle, rover, planet, Crr):
     Frr = F_rolling(omega, terrain_angle, rover, planet, Crr)
     Fd = F_drive(omega, rover)
 
-    return Fgt + Frr + Fd
+    return Fgt - Frr + Fd
         
 
 #Rover dictionary structure
