@@ -1,5 +1,6 @@
+from math import erf, cos, sin, pi
+from numpy import vectorize
 import numpy
-
 
 def get_mass(rover):    # Austin
     #Rover dictionary data structure containing rover paramters
@@ -100,11 +101,12 @@ def F_drive(omega, rover):  # Davis
 
 def F_gravity():    # Asher
     """Returns the magnitude of the force component acting on the rover in the direction of its translational motiondue  to  gravity  as  a  function  of  terrain  inclination  angle  and  rover properties."""
-
+    array_r = array([])
     for i in range(len(terrain_angle)):
         if terrain_angle[i] > 75 or terrain_angle[i] < -75:
             raise Exception("terrain_angle needs to be below 75 and above -75 degrees")  
-            
+    if type(terrain_angle) is not int and type(terrain_angle) is not float and type(terrain_angle) is not type(array_r):
+        raise Exception('terrain angle must be a scalar or vector')
     if type(rover) is not dict or type(planet) is not dict:
         raise Exception("planet and rover need to be dictionaries")   
         
@@ -118,13 +120,14 @@ def F_gravity():    # Asher
 
 def F_rolling():    # Asher
     """Returns the magnitude of the force component acting on the rover in the direction of its translational motiondue  to  gravity  as  a  function  of  terrain  inclination  angle  and  rover properties"""
-
+    array_r = array([])
     if len(omega) != len(terrain_angle):
         raise Exception("the input omega and terrain_angle must be the same size")
     for i in range(len(terrain_angle)):
         if terrain_angle[i] > 75 or terrain_angle[i] < -75:
             raise Exception("terrain_angle needs to be below 75 and above -75 degrees")
-            break   
+    if type(terrain_angle) is not int and type(terrain_angle) is not float and type(terrain_angle) is not type(array_r):
+        raise Exception('terrain angle must be a scalar or vector')    
     if type(rover) is not dict or type(planet) is not dict:
         raise Exception("planet and rover need to be dictionaries")
     if type(Crr) is not float and type(Crr) is not int:
@@ -150,19 +153,22 @@ def F_rolling():    # Asher
     return Frr
 
 def F_net():
+    array_r = array([])
     """Returns the magnitude of net force acting on the rover in the direction of its translational motion."""
     if len(omega) != len(terrain_angle):
         raise Exception("the input omega and terrain_angle must be the same size")
     for i in range(len(terrain_angle)):
         if terrain_angle[i] > 75 or terrain_angle[i] < -75:
             raise Exception("terrain_angle needs to be below 75 and above -75 degrees")
-            break   
+    if type(terrain_angle) is not int and type(terrain_angle) is not float and type(terrain_angle) is not type(array_r):
+        raise Exception('terrain angle must be a scalar or vector')    
     if type(rover) is not dict or type(planet) is not dict:
         raise Exception("planet and rover need to be dictionaries")
     if type(Crr) is not float and type(Crr) is not int:
         raise Exception("Crr needs to be type int or float")
     if Crr < 0:
-        raise Exception("Crr needs to be positive")    
+        raise Exception("Crr needs to be positive")
+        
 
 # Rover dictionary structure
 planet = {'g': 3.72}
