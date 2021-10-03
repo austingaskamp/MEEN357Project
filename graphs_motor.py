@@ -43,28 +43,32 @@ rover = {'wheel_assembly': wheel_assembly,
 omega = numpy.linspace(0, 3.8, 100)
 
 torque = tau_dcmotor(omega, rover['wheel_assembly']['motor'])
-plt.subplot(3,1,1)
-plt.plot(omega, torque, '-b')
-plt.xlabel('Motor Shaft Torque (N*m)')
-plt.ylabel('Motor Shaft Speed (rad/s)')
-plt.grid(True)
+fig, (g1, g2, g3) = plt.subplots(3,1)
+
+g1.plot(omega, torque, '-b')
+g1.set_xlabel('Motor Shaft Torque (N*m)')
+g1.set_ylabel('Motor Shaft Speed (rad/s)')
+g1.grid(True)
 
 x = arange(0, 170,.5)
 y = -(rover['wheel_assembly']['motor']['speed_noload'] / rover['wheel_assembly']['motor']['torque_stall']) * x**2 + rover['wheel_assembly']['motor']['speed_noload'] * x
 
-plt.subplot(3,1,2)
-plt.plot(x,y, '-b')
-plt.xlabel('Motor Shaft Torque (N*m)')
-plt.ylabel('Motor Powerm (W)')
-plt.grid(True)
+
+g2.plot(x,y, '-b')
+g2.set_xlabel('Motor Shaft Torque (N*m)')
+g2.set_ylabel('Motor Powerm (W)')
+g2.grid(True)
     
 x = arange(0, 3.8, .001)
 y = -(rover['wheel_assembly']['motor']['speed_noload'] / rover['wheel_assembly']['motor']['torque_stall']) * (rover['wheel_assembly']['motor']['torque_stall'] - (rover['wheel_assembly']['motor']['torque_stall'] / rover['wheel_assembly']['motor']['speed_noload'])* x)**2 + rover['wheel_assembly']['motor']['speed_noload'] * (rover['wheel_assembly']['motor']['torque_stall'] - (rover['wheel_assembly']['motor']['torque_stall'] / rover['wheel_assembly']['motor']['speed_noload'])* x)
 
-plt.subplot(3,1,3)
-plt.plot(x,y, '-b')
-plt.xlabel('Motor Shaft Speed (rad/s)')
-plt.ylabel('Motor Power (W)')
-plt.grid(True)
-plt.show()
+
+g3.plot(x,y, '-b')
+g3.set_xlabel('Motor Shaft Speed (rad/s)')
+g3.set_ylabel('Motor Power (W)')
+g3.grid(True)
+
+fig.tight_layout()
+fig.show()
+print('hi')
 
