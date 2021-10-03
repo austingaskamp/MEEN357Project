@@ -6,6 +6,7 @@
 from subfunctions import *
 import matplotlib.pyplot as plt
 import numpy
+from numpy import arange
 
 #Rover dictionary structure
 planet = {'g': 3.72}
@@ -42,6 +43,28 @@ rover = {'wheel_assembly': wheel_assembly,
 omega = numpy.linspace(0, 3.8, 100)
 
 torque = tau_dcmotor(omega, rover['wheel_assembly']['motor'])
-
+plt.subplot(3,1,1)
 plt.plot(omega, torque, '-b')
+plt.xlabel('Motor Shaft Torque (rad/s)')
+plt.ylabel('Motor Shaft Speed (rad/s)')
+plt.grid(True)
+
+x = arange(0, 200,.5)
+y = -(rover['wheel_assembly']['motor']['speed_noload'] / rover['wheel_assembly']['motor']['torque_stall']) * x**2 + rover['wheel_assembly']['motor']['speed_noload'] * x
+
+plt.subplot(3,1,2)
+plt.plot(x,y, '-b')
+plt.xlabel('Motor Shaft Torque (N*m)')
+plt.ylabel('Motor Powerm (W)')
+plt.grid(True)
+    
+x = arange(0, 3.8, .001)
+y = -(rover['wheel_assembly']['motor']['speed_noload'] / rover['wheel_assembly']['motor']['torque_stall']) * (rover['wheel_assembly']['motor']['torque_stall'] - (rover['wheel_assembly']['motor']['torque_stall'] / rover['wheel_assembly']['motor']['speed_noload'])* x)**2 + rover['wheel_assembly']['motor']['speed_noload'] * (rover['wheel_assembly']['motor']['torque_stall'] - (rover['wheel_assembly']['motor']['torque_stall'] / rover['wheel_assembly']['motor']['speed_noload'])* x)
+
+plt.subplot(3,1,3)
+plt.plot(x,y, '-b')
+plt.xlabel('Motor Shaft Speed (rad/s)')
+plt.ylabel('Motor Power (W)')
+plt.grid(True)
 plt.show()
+
