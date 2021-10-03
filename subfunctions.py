@@ -35,7 +35,16 @@ def get_gear_ratio(speed_reducer):  # Austin
     if type(speed_reducer) is not dict:
         raise Exception("Invalid input: get_gear_ratio")
 
+    #Validating type field, should be reverted
+    elif speed_reducer['type'].upper() != "REVERTED":
+        raise Exception("Invalid input: invalid type for speed_reducer")
+
+    #Performing gear ratio calculation after input has been validatied 
     else:
+        d1 = speed_reducer['diam_pinion']
+        d2 = speed_reducer['diam_gear']
+        gear_ratio = (d2 / d1) ** 2
+        return gear_ratio
         
     
 
