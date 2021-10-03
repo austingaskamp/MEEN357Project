@@ -49,7 +49,7 @@ plt.xlabel('Motor Shaft Torque (rad/s)')
 plt.ylabel('Motor Shaft Speed (rad/s)')
 plt.grid(True)
 
-x = arange(0, 200,.5)
+x = arange(0, 170,.5)
 y = -(rover['wheel_assembly']['motor']['speed_noload'] / rover['wheel_assembly']['motor']['torque_stall']) * x**2 + rover['wheel_assembly']['motor']['speed_noload'] * x
 
 plt.subplot(3,1,2)
