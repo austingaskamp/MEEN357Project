@@ -11,16 +11,22 @@ def get_mass(rover):    # Austin
     else:
         #initialize mass to 0
         m = 0 
+
         #add wheel mass
         m += rover['wheel_assembly']['wheel']['mass']
+
         #add speed_reducer mass
         m += rover['wheel_assembly']['speed_reducer']['mass']
+
         #add moter mass 
         m += rover['wheel_assembly']['motor']['mass']
+
         #add chassis mass
         m += rover['chassis']['mass']
+
         #add science_payload mass
         m += rover['science_payload']['mass']
+
         #add power_subsys mass
         m += rover['power_subsys']['mass']
 
@@ -28,6 +34,7 @@ def get_mass(rover):    # Austin
 
 
 def get_gear_ratio(speed_reducer):  # Austin
+    """Computes the gear ratio of the speed reducer"""
     #speed_reducer must be a dictionary specifying speed reducer paramters
     
     #Validating input is a dictionary
@@ -86,6 +93,10 @@ def F_drive(omega, rover):  # Davis
     return force_total
 
 
+#is there only a single case?
+#Or case 1 -> positive angle
+#case 2 -> zero angle
+#case 3 -> negative angle
 
 def F_gravity():    # Asher
     """Returns the magnitude of the force component acting on the rover in the direction of its translational motiondue  to  gravity  as  a  function  of  terrain  inclination  angle  and  rover properties."""
