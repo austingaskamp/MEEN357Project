@@ -1,5 +1,6 @@
+from math import erf, cos, sin, pi
+from numpy import vectorize
 import numpy
-
 
 def get_mass(rover):    # Austin
     #Rover dictionary data structure containing rover paramters
@@ -80,11 +81,12 @@ def F_drive(omega, rover):  # Davis
 
 def F_gravity():    # Asher
     """Returns the magnitude of the force component acting on the rover in the direction of its translational motiondue  to  gravity  as  a  function  of  terrain  inclination  angle  and  rover properties."""
-
+    array_r = array([])
     for i in range(len(terrain_angle)):
         if terrain_angle[i] > 75 or terrain_angle[i] < -75:
             raise Exception("terrain_angle needs to be below 75 and above -75 degrees")  
-            
+    if type(terrain_angle) is not int and type(terrain_angle) is not float and type(terrain_angle) is not type(array_r):
+        raise Exception('terrain angle must be a scalar or vector')
     if type(rover) is not dict or type(planet) is not dict:
         raise Exception("planet and rover need to be dictionaries")   
         
