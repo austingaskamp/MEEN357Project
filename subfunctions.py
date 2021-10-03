@@ -145,7 +145,7 @@ def F_rolling(omega, terrain_angle, rover, planet, Crr):
             raise Exception("Invalid input: terrain_angle out of bounds")  
     
     #Validating terrain angle input
-    if type(terrain_angle) is not int and type(terrain_angle) is not float and type(terrain_angle) is not list:
+    if type(terrain_angle) is not int and type(terrain_angle) is not float and type(terrain_angle) is not type(array_r) and type(terrain_angle) is not list:
         raise Exception('terrain angle must be a scalar or vector')    
 
     #Checking if third and fourth inputs are dictionaries
