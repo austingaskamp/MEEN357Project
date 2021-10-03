@@ -1,5 +1,5 @@
 from math import erf, cos, sin, pi
-from numpy import vectorize
+from numpy import vectorize, array
 import numpy
 
 def get_mass(rover):    # Austin
@@ -128,12 +128,12 @@ def F_rolling(omega, terrain_angle, rover, planet, Crr):    # Asher
     m = get_mass(rover)
     
     omega_out = omega / Ng
-    v_rover = rover[wheel_assembly][wheel][radius] * omega_out
+    v_rover = rover[wheel_assembly][wheel]['radius'] * omega_out
 
     terrain_angle = terrain_angle* pi / 180
         
     
-    Fn = m * planet[g] * cos(terrain_angle)
+    Fn = m * planet['g'] * cos(terrain_angle)
     Frrs = Crr * Fn
     vector = vectorize(erf)
     v_rover *= 40
