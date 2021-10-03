@@ -4,12 +4,39 @@ import numpy
 def get_mass(rover):    # Austin
     #Rover dictionary data structure containing rover paramters
     """Computes the total mass of the rover. Uses information in the rover dict"""
+    #validating input is a dictionary
+    if type(rover) is not dict:
+        raise Exception("Invalid input: get_mass")
+
+    else:
+        #initialize mass to 0
+        m = 0 
+        #add wheel mass
+        m += rover['wheel_assembly']['wheel']['mass']
+        #add speed_reducer mass
+        m += rover['wheel_assembly']['speed_reducer']['mass']
+        #add moter mass 
+        m += rover['wheel_assembly']['motor']['mass']
+        #add chassis mass
+        m += rover['chassis']['mass']
+        #add science_payload mass
+        m += rover['science_payload']['mass']
+        #add power_subsys mass
+        m += rover['power_subsys']['mass']
+
+        return m
 
 
 def get_gear_ratio(speed_reducer):  # Austin
     #speed_reducer must be a dictionary specifying speed reducer paramters
+    
+    #Validating input is a dictionary
+    if type(speed_reducer) is not dict:
+        raise Exception("Invalid input: get_gear_ratio")
 
-    """Returns the speed reduction ratio for the speed reducer based on speed_reducer dict."""
+    else:
+        
+    
 
 
 def tau_dcmotor(omega, motor):  # Davis
