@@ -88,7 +88,7 @@ def F_drive(omega, rover):  # Davis
 
 
 
-def F_gravity():    # Asher
+def F_gravity(omega, terrain_angle, rover, planet, Crr):    # Asher
     """Returns the magnitude of the force component acting on the rover in the direction of its translational motiondue  to  gravity  as  a  function  of  terrain  inclination  angle  and  rover properties."""
     array_r = array([])
     for i in range(len(terrain_angle)):
@@ -107,7 +107,7 @@ def F_gravity():    # Asher
     
     return Fgt
 
-def F_rolling():    # Asher
+def F_rolling(omega, terrain_angle, rover, planet, Crr):    # Asher
     """Returns the magnitude of the force component acting on the rover in the direction of its translational motiondue  to  gravity  as  a  function  of  terrain  inclination  angle  and  rover properties"""
     array_r = array([])
     if len(omega) != len(terrain_angle):
@@ -141,7 +141,7 @@ def F_rolling():    # Asher
     Frr = vector(v_rover)*Frrs
     return Frr
 
-def F_net():
+def F_net(omega, terrain_angle, rover, planet, Crr):
     array_r = array([])
     """Returns the magnitude of net force acting on the rover in the direction of its translational motion."""
     if len(omega) != len(terrain_angle):
