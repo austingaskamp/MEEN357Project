@@ -63,13 +63,13 @@ def tau_dcmotor(omega, motor):
     """Returns the motor shaft torque when given motor shaft speed and a dictionary containing important
     specifications for the motor. """
 
-    valueCheck = (type(omega) not in (np.ndarray, float, int)) or (motor is not dict)
-    if valueCheck:
+    valueCheck = (type(omega) not in (np.ndarray, float, int)) or (type(motor) is not dict)
+    if valueCheck is True:
         raise TypeError('Incorrect parameters for tau_dcmotor')
 
-    if omega > motor['speed_noload']:
+    if omega.any() > motor['speed_noload']:
         torque = 0 * omega
-    elif omega < 0:
+    elif omega.any() < 0:
         torque = motor['torque_stall'] * omega
     else:
         torque = motor['torque_stall'] - ((motor['torque_stall'] - motor['torque_noload']) / motor['speed_noload']) * omega
