@@ -114,7 +114,7 @@ def F_gravity(omega, terrain_angle, rover, planet, Crr):    # Asher
     
     terrain_angle = terrain_angle* pi / 180    
     
-    Fgt = m * planet[g] * sin(terrain_angle)
+    Fgt = m * planet['g'] * sin(terrain_angle)
     
     return Fgt
 
