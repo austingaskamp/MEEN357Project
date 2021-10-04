@@ -129,8 +129,8 @@ def F_gravity(terrain_angle, rover, planet):
 #Asher
 def F_rolling(omega, terrain_angle, rover, planet, Crr): 
     """Returns the magnitude of the force component acting on the rover in the direction of its translational motiondue  to  gravity  as  a  function  of  terrain  inclination  angle  and  rover properties"""
-    array_r = array([])
-
+    array_r = array([1])
+    array_f = array([1.0])
     #Validation A, same size vecotrs
     if len(omega) != len(terrain_angle):
         raise Exception("the input omega and terrain_angle must be the same size")
@@ -138,7 +138,7 @@ def F_rolling(omega, terrain_angle, rover, planet, Crr):
     #Validating terrain_angle values
     for angle in terrain_angle:
         #Checking if integer or floating point number
-        if type(angle) is not float or type(angle) is not int:
+        if type(angle) is not type(array_r[0]) and type(angle) is not type(array_f[0]):
             raise Exception("Invalid input: terrain_angle invalid type")
         #Checking if angle within given bounds
         if angle > 75 or angle < -75:
@@ -168,11 +168,11 @@ def F_rolling(omega, terrain_angle, rover, planet, Crr):
 
     terrain_angle = terrain_angle * (pi / 180)
         
-    Fn = abs(m * planet['g'] * cos(terrain_angle)) #using abs because normal force always positive
+    Fn = abs(m * planet['g'] * np.cos(terrain_angle)) #using abs because normal force always positive
     Frrs = Crr * Fn 
     vector = vectorize(erf) #**How does this work? 
         
-    Frr = vector * (v_rover) * Frrs
+    Frr = vector(v_rover) * Frrs
 
     return Frr
 
