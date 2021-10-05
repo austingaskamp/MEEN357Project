@@ -69,6 +69,6 @@ g3.set_ylabel('Motor Power (W)')
 g3.grid(True)
 
 fig.tight_layout()
-fig.show()
-print('hi')
+plt.show()
+
 
