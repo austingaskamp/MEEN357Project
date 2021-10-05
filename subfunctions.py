@@ -164,7 +164,7 @@ def F_rolling(omega, terrain_angle, rover, planet, Crr):
     m = get_mass(rover)
     
     omega_out = omega / gear_ratio
-    v_rover = rover['wheel_assembly']['wheel']['radius'] * omega_out
+    v_rover = rover['wheel_assembly']['wheel']['radius'] * omega_out * 40
 
     terrain_angle = terrain_angle * (pi / 180)
         
