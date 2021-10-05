@@ -56,4 +56,5 @@ for index, i in enumerate(CRR):
 figure = plt.figure()
 ax = figure.add_subplot(projection='3d')
 ax.plot_surface(CRR, SLOPE, VMAX)
+ax.
 print('hi')
