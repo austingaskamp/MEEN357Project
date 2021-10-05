@@ -94,4 +94,4 @@ g3.set_ylabel('Speed Reducer Power (W)')
 g3.grid(True)
 
 fig.tight_layout()
-plt.show()
+fig.show()
