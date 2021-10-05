@@ -170,7 +170,7 @@ def F_rolling(omega, terrain_angle, rover, planet, Crr):
         
     Fn = abs(m * planet['g'] * np.cos(terrain_angle)) #using abs because normal force always positive
     Frrs = Crr * Fn 
-    vector = vectorize(erf) #**How does this work? 
+    vector = vectorize(erf) #allows python to compute erf of an array
         
     Frr = vector(v_rover) * Frrs
 
