@@ -10,7 +10,7 @@ def bisection(lower, upper, terrain_angle, crr, rover, planet,):
         return 'NAN'
 
     error = 1.0
-    errorCap = 0.001
+    errorCap = 0.0001
     iteration = 0
     iterationCap = 200
 
