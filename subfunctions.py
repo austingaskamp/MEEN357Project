@@ -1,3 +1,4 @@
+import numpy
 from math import erf, cos, sin, pi
 from numpy import vectorize, array
 import numpy as np
@@ -15,13 +16,13 @@ def get_mass(rover):
         m = 0 
 
         #add wheel mass
-        m += rover['wheel_assembly']['wheel']['mass']
+        m += (rover['wheel_assembly']['wheel']['mass']) * 6
 
         #add speed_reducer mass
-        m += rover['wheel_assembly']['speed_reducer']['mass']
+        m += (rover['wheel_assembly']['speed_reducer']['mass']) * 6
 
         #add moter mass 
-        m += rover['wheel_assembly']['motor']['mass']
+        m += (rover['wheel_assembly']['motor']['mass']) * 6
 
         #add chassis mass
         m += rover['chassis']['mass']
@@ -81,7 +82,7 @@ def F_drive(omega, rover):
     """Returns the force applied to the rover by the drive systemgiven information about the drive system (
     wheel_assembly) and the motor shaft speed. """
 
-    valueCheck = (type(omega) not in (np.ndarray, float, int)) or (rover is not dict)
+    valueCheck = (type(omega) not in (np.ndarray, float, int)) or (type(rover) is not dict)
     if valueCheck:
         raise TypeError("F_drive function error... incorrect parameter value")
 
@@ -103,13 +104,15 @@ def F_gravity(terrain_angle, rover, planet):
     """Returns the magnitude of the force component acting on the rover in the direction of its translational motiondue  to  gravity  as  a  function  of  terrain  inclination  angle  and  rover properties."""
 
     #Validating input parameters
+    # ERROR BELOW
+    # following conditional will never be true
     if type(terrain_angle) is not list and type(rover) is not dict and type(planet) is not dict:
         raise Exception("planet and rover need to be dictionaries") 
 
     #Validating terrain_angle values
     for angle in terrain_angle:
         #Checking if integer or floating point number
-        if type(angle) is not float and type(angle) is not int:
+        if type(angle) not in (float, int, numpy.float64):
             raise Exception("Invalid input: terrain_angle invalid type")
         #Checking if angle within given bounds
         if angle > 75 or angle < -75:
@@ -122,9 +125,9 @@ def F_gravity(terrain_angle, rover, planet):
     terrain_angle = terrain_angle * (pi / 180)    
     
     #Computing force of gravity, 
-    Fgt = m * planet['g'] * sin(terrain_angle)
+    Fgt = m * planet['g'] * numpy.sin(terrain_angle)
     
-    return Fgt
+    return -Fgt
 
 #Asher
 def F_rolling(omega, terrain_angle, rover, planet, Crr): 
@@ -164,9 +167,9 @@ def F_rolling(omega, terrain_angle, rover, planet, Crr):
     m = get_mass(rover)
     
     omega_out = omega / gear_ratio
-    v_rover = rover['wheel_assembly']['wheel']['radius'] * omega_out * 40
+    v_rover = rover['wheel_assembly']['wheel']['radius'] * omega_out * 40   # Why times 40??
 
-    terrain_angle = terrain_angle * (pi / 180)
+    terrain_angle = terrain_angle * (numpy.pi / 180)
         
     Fn = abs(m * planet['g'] * np.cos(terrain_angle)) #using abs because normal force always positive
     Frrs = Crr * Fn 
@@ -174,7 +177,7 @@ def F_rolling(omega, terrain_angle, rover, planet, Crr):
         
     Frr = vector(v_rover) * Frrs
 
-    return Frr
+    return -Frr
 
 #Austin
 def F_net(omega, terrain_angle, rover, planet, Crr):
@@ -185,7 +188,7 @@ def F_net(omega, terrain_angle, rover, planet, Crr):
     Frr = F_rolling(omega, terrain_angle, rover, planet, Crr)
     Fd = F_drive(omega, rover)
 
-    return Fgt - Frr + Fd
+    return Fgt + Frr + Fd   # All signs and directions handled inside functions
         
 
 #Rover dictionary structure
@@ -220,3 +223,13 @@ rover = {'wheel_assembly': wheel_assembly,
          'power_subsys': power_subsys
         }
 
+
+if __name__ == '__main__':
+    omega = numpy.linspace(0, 3.8, 10)
+    terrain_angle = numpy.linspace(-10, 35, 10)
+    driveTest = F_drive(omega, rover)
+    rollingTest = F_rolling(omega, terrain_angle, rover, planet, 0.01)
+    gravityTest = F_gravity(terrain_angle, rover, planet)
+    totalTest = F_net(omega, terrain_angle, rover, planet, 0.01)
+    massTest = get_mass(rover)
+    print('breakpoint')
