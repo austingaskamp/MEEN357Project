@@ -112,7 +112,7 @@ def F_gravity(terrain_angle, rover, planet):
     #Validating terrain_angle values
     for angle in terrain_angle:
         #Checking if integer or floating point number
-        if type(angle) not in (float, int, numpy.float64):
+        if type(angle) not in (float, int, numpy.float64, numpy.int32):
             raise Exception("Invalid input: terrain_angle invalid type")
         #Checking if angle within given bounds
         if angle > 75 or angle < -75:
