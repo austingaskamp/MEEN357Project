@@ -45,7 +45,7 @@ omega = numpy.linspace(0, 3.8, 100)
 torque = (tau_dcmotor(omega, rover['wheel_assembly']['motor'])) / 6
 fig, (g1, g2, g3) = plt.subplots(3,1)
 
-g1.plot(omega, torque, '-b')
+g1.plot(torque, omega, '-b')
 g1.set_xlabel('Motor Shaft Torque (N*m)')
 g1.set_ylabel('Motor Shaft Speed (rad/s)')
 g1.grid(True)
