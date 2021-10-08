@@ -44,6 +44,7 @@ omega = numpy.linspace(0, 3.8, 100)
 
 torque = tau_dcmotor(omega, rover['wheel_assembly']['motor'])
 fig, (g1, g2, g3) = plt.subplots(3,1)
+g1.set_title('graphs_motor.py')
 
 g1.plot(omega, torque, '-b')
 g1.set_xlabel('Motor Shaft Torque (N*m)')
@@ -56,7 +57,7 @@ y = -(rover['wheel_assembly']['motor']['speed_noload'] / rover['wheel_assembly']
 
 g2.plot(x,y, '-b')
 g2.set_xlabel('Motor Shaft Torque (N*m)')
-g2.set_ylabel('Motor Powerm (W)')
+g2.set_ylabel('Motor Power (W)')
 g2.grid(True)
     
 x = arange(0, 3.8, .001)
@@ -70,5 +71,4 @@ g3.grid(True)
 
 fig.tight_layout()
 fig.show()
-
 
