@@ -65,7 +65,7 @@ Ng = get_gear_ratio(speed_reducer)
 
 omega_dist = 3.8 / Ng
 
-omega = numpy.linspace(0, 3.8, 100)
+omega = numpy.linspace(0, 3.8/Ng, 100)
 
 torque = (tau_dcmotor(omega, rover['wheel_assembly']['motor']) * Ng) /6
 fig, (g1, g2, g3) = plt.subplots(3,1)
