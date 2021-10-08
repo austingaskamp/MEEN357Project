@@ -106,7 +106,7 @@ def F_gravity(terrain_angle, rover, planet):
     #Validating input parameters
     # ERROR BELOW
     # following conditional will never be true
-    if type(terrain_angle) is not list and type(rover) is not dict and type(planet) is not dict:
+    if type(terrain_angle) is not list or type(rover) is not dict or type(planet) is not dict:
         raise Exception("planet and rover need to be dictionaries") 
 
     #Validating terrain_angle values
