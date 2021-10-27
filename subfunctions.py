@@ -203,7 +203,9 @@ chassis = {'mass': 659.0}
 motor = {'torque_stall': 170.0, 
          'torque_noload': 0.0, 
          'speed_noload': 3.8, 
-         'mass': 5.0}
+         'mass': 5.0,
+         'effcy_tau': np.array([0, 10, 20, 40, 75, 165]),
+         'effcy': np.array([0, 0.6, 0.75, 0.55, 0.05])}
 
 speed_reducer = {'type': "Reverted",
                  'diam_pinion': 0.04, 

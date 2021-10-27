@@ -59,4 +59,3 @@ plt.xlabel('Slope [degrees]')
 plt.ylabel('Maximum Velocity [m/s]')
 plt.title('Slope Terrain Analysis')
 plt.show()
-
