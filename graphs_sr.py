@@ -65,18 +65,19 @@ Ng = get_gear_ratio(speed_reducer)
 
 omega_dist = 3.8 / Ng
 
-omega = numpy.linspace(0, 3.8, 100)
+omega = numpy.linspace(0, 3.8/Ng, 100)
 
 torque = (tau_dcmotor(omega, rover['wheel_assembly']['motor']) * Ng) /6
 fig, (g1, g2, g3) = plt.subplots(3,1)
 
-g1.plot(omega, torque, '-b')
+g1.plot(torque, omega, '-b')
 g1.set_xlabel('Speed Reducer Torque (N*m)')
 g1.set_ylabel('Speed Reducer Speed (rad/s)')
 g1.grid(True)
 
-x = arange(0, 170/ Ng,.5)
-y = (-(rover['wheel_assembly']['motor']['speed_noload'] / rover['wheel_assembly']['motor']['torque_stall']) * (x*Ng)**2 + rover['wheel_assembly']['motor']['speed_noload'] * (x*Ng))/6
+x = arange(0, 170*Ng,.5)
+
+y = (-(rover['wheel_assembly']['motor']['speed_noload'] / rover['wheel_assembly']['motor']['torque_stall']) * (x/Ng)**2 + rover['wheel_assembly']['motor']['speed_noload'] * (x/Ng))/6
 
 
 g2.plot(x,y, '-b')
@@ -84,8 +85,8 @@ g2.set_xlabel('Speed Reducer Torque (N*m)')
 g2.set_ylabel('Speed Reducer Power (W)')
 g2.grid(True)
     
-x = arange(0, 3.8 *Ng, .001)
-y = (-(rover['wheel_assembly']['motor']['speed_noload'] / rover['wheel_assembly']['motor']['torque_stall']) * (rover['wheel_assembly']['motor']['torque_stall'] - (rover['wheel_assembly']['motor']['torque_stall'] / rover['wheel_assembly']['motor']['speed_noload'])* (x/Ng))**2 + rover['wheel_assembly']['motor']['speed_noload'] * (rover['wheel_assembly']['motor']['torque_stall'] - (rover['wheel_assembly']['motor']['torque_stall'] / rover['wheel_assembly']['motor']['speed_noload'])* (x/Ng)))/6
+x = arange(0, 3.8/Ng, .001)
+y = (-(rover['wheel_assembly']['motor']['speed_noload'] / rover['wheel_assembly']['motor']['torque_stall']) * (rover['wheel_assembly']['motor']['torque_stall'] - (rover['wheel_assembly']['motor']['torque_stall'] / rover['wheel_assembly']['motor']['speed_noload'])* (x*Ng))**2 + rover['wheel_assembly']['motor']['speed_noload'] * (rover['wheel_assembly']['motor']['torque_stall'] - (rover['wheel_assembly']['motor']['torque_stall'] / rover['wheel_assembly']['motor']['speed_noload'])* (x*Ng)))/6
 
 
 g3.plot(x,y, '-b')
